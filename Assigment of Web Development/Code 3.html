@@ -1,0 +1,535 @@
+<!DOCTYPE html><html lang="ms"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaya Hidup Digital</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 3rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -2rem auto 0;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Tips Grid */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .tip-box {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tip-box .icon {
+            font-size: 1.5rem;
+        }
+
+        .tip-box h3 {
+            font-size: 1rem;
+            margin: 0.3rem 0;
+        }
+
+        .tip-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Galeri Imej */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .img-wrapper {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #e2e8f0;
+            aspect-ratio: 4 / 3;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-wrapper span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 0.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Video & Audio */
+        .video-container video {
+            border-radius: 8px;
+            display: block;
+        }
+
+        .audio-card .audio-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Button */
+        .btn-primary, .btn-secondary {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        /* Kuiz Interaktif */
+        .hidden { display: none !important; }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .option-btn {
+            padding: 0.75rem 1rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .option-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .option-btn.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #15803d;
+        }
+
+        .option-btn.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #b91c1c;
+        }
+
+        .explanation-box {
+            padding: 0.75rem;
+            border-radius: 6px;
+            background: #eff6ff;
+            color: #1e40af;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-controls {
+            margin-top: 1rem;
+        }
+    </style></head><body>
+
+    <header>
+        <div class="header-content">
+            <h1>🌐 Gaya Hidup Digital</h1>
+            <p>Memperkasa Kehidupan Menerusi Teknologi, Inovasi & Keselamatan Siber</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Kad 1: Panduan Keselamatan & Etika Digital -->
+        <div class="card highlight-card">
+            <h2>💡 Tips Gaya Hidup Digital Selamat</h2>
+            <div class="tips-grid">
+                <div class="tip-box">
+                    <span class="icon">🔒</span>
+                    <h3>Kata Laluan Kuat</h3>
+                    <p>Gunakan gabungan huruf, nombor, dan simbol serta aktifkan Pengesahan 2-Faktor (2FA).</p>
+                </div>
+                <div class="tip-box">
+                    <span class="icon">🛡️</span>
+                    <h3>Elak Phishing</h3>
+                    <p>Jangan klik pautan mencurigakan daripada e-mel atau mesej yang tidak dikenali.</p>
+                </div>
+                <div class="tip-box">
+                    <span class="icon">⚖️</span>
+                    <h3>Keseimbangan Skrin</h3>
+                    <p>Amalkan rehat berkala daripada peranti untuk menjaga kesihatan mata dan minda.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kad 2: Teknologi -->
+        <div class="card">
+            <h2>1. Aplikasi Teknologi Dalam Kehidupan Harian</h2>
+            <div class="image-gallery">
+                <div class="img-wrapper">
+                    <img src="Images/images.png" alt="E-Dompet & Transaksi">
+                    <span>E-Kewangan</span>
+                </div>
+                <div class="img-wrapper">
+                    <img src="Images/baju.jpg" alt="Pembelajaran Dalam Talian">
+                    <span>E-Pembelajaran</span>
+                </div>
+                <div class="img-wrapper">
+                    <img src="Images/images.jpg" alt="E-Dagang & Membeli Belah">
+                    <span>E-Dagang</span>
+                </div>
+            </div>
+            <p class="description">
+                Gaya hidup digital merangkumi integrasi pelbagai teknologi seperti transaksi tanpa tunai (E-dompet), pembelajaran fleksibel secara atas talian, pengurusan rumah pintar (Smart Home), dan perkhidmatan awan (Cloud).
+            </p>
+        </div>
+        
+        <!-- Kad 3: Video -->
+        <div class="card">
+            <h2>2. Video Pendidikan: Rakyat Digital</h2>
+            <div class="video-container">
+                <video controls width="100%" poster="Images/images.jpg">
+                    <source src="Video/Rakyat Digital Memperkasa Rakyat Malaysia dengan Kemahiran Digital Masa Kini - MyDIGITAL Corporation (1080p, h264).mp4" type="video/mp4">
+                    Pelayar anda tidak menyokong elemen video.
+                </video>
+            </div>
+        </div>
+        
+        <!-- Kad 4: Audio -->
+        <div class="card audio-card">
+            <div class="audio-flex">
+                <div>
+                    <h2>3. Muzik Latar</h2>
+                    <p>Dengar muzik santai semasa membaca & menjawab kuiz.</p>
+                </div>
+                <div>
+                    <audio id="backsound" loop>
+                        <source src="Audio/💰 Inspiring Technology  Royalty Free Music  GML  Mainstream - Greatest Music Library.mp3" type="audio/mpeg">
+                    </audio>
+                    <button id="audioBtn" class="btn-secondary" onclick="toggleAudio()">🔊 Mainkan Muzik</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kad 5: Kuiz Interaktif Lengkap -->
+        <div class="card quiz-card" id="quiz-section">
+            <h2>4. Uji Minda: Kuiz Gaya Hidup Digital</h2>
+            
+            <div id="quiz-container">
+                <div id="quiz-header" class="hidden">
+                    <div class="progress-bar-container">
+                        <div id="progress-bar"></div>
+                    </div>
+                    <span id="question-count">Soalan 1</span>
+                </div>
+
+                <div id="question-box">
+                    <p id="question-text">Tekan butang di bawah untuk memulakan kuiz!</p>
+                    <div id="options-container" class="options-grid"></div>
+                    <div id="explanation" class="explanation-box hidden"></div>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button id="start-btn" class="btn-primary" onclick="startQuiz()">Mula Kuiz Interaktif</button>
+                    <button id="next-btn" class="btn-primary hidden" onclick="nextQuestion()">Soalan Seterusnya ➡️</button>
+                </div>
+
+                <div id="result-box" class="hidden">
+                    <h3 id="result-title"></h3>
+                    <p id="score-display"></p>
+                    <button class="btn-primary" onclick="startQuiz()" style="margin-top: 1rem;">Cuba Lagi 🔄</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Kawalan Audio
+        const audio = document.getElementById('backsound');
+        const audioBtn = document.getElementById('audioBtn');
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                audioBtn.innerHTML = '⏸️ Hentikan Muzik';
+            } else {
+                audio.pause();
+                audioBtn.innerHTML = '🔊 Mainkan Muzik';
+            }
+        }
+
+        // Data Kuiz
+        const questions = [
+            {
+                question: "Apakah tindakan terbaik untuk melindungi akaun dalam talian daripada pencerobohan?",
+                options: [
+                    "Menggunakan kata laluan yang sama untuk semua akaun",
+                    "Mengaktifkan Pengesahan 2-Faktor (2FA) dan kata laluan unik",
+                    "Berkongsi kata laluan dengan rakan karib",
+                    "Menyimpan kata laluan dalam catatan telefon"
+                ],
+                answer: 1,
+                explanation: "Pengesahan 2-Faktor (2FA) memberikan lapisan keselamatan tambahan manakala kata laluan unik menghalang pencerobohan berantai."
+            },
+            {
+                question: "Antara berikut, yang manakah merupakan ciri-ciri serangan Phishing?",
+                options: [
+                    "Mesej rasmi yang menyapa dengan nama penuh anda",
+                    "E-mel daripada sumber tidak dikenali yang menggesa anda menekan pautan",
+                    "Kemas kini perisian tegar rasmi daripada peranti",
+                    "Laman web yang bermula dengan https:// yang sah"
+                ],
+                answer: 1,
+                explanation: "Phishing kerap menggunakan taktik menakutkan atau menggesa mangsa menekan pautan berunsur penipuan."
+            },
+            {
+                question: "Apakah tujuan utama amalan keseimbangan skrin (Digital Wellbeing)?",
+                options: [
+                    "Menjimatkan kuota data internet bulanan",
+                    "Menjaga kesihatan fizikal dan mental daripada pendedahan skrin berlebihan",
+                    "Memastikan hayat bateri peranti bertahan lebih lama",
+                    "Meningkatkan kelajuan capaian internet"
+                ],
+                answer: 1,
+                explanation: "Keseimbangan skrin penting untuk mengelakkan keletihan mata, gangguan tidur, dan stres mental."
+            },
+            {
+                question: "Antara berikut, yang manakah contoh aplikasi E-Kewangan yang digunakan dalam kehidupan harian?",
+                options: [
+                    "Google Classroom",
+                    "E-dompet dan Perbankan Dalam Talian",
+                    "Aplikasi suntingan video",
+                    "Media sosial"
+                ],
+                answer: 1,
+                explanation: "E-dompet dan perbankan dalam talian memudahkan transaksi tanpa tunai secara pantas dan selamat."
+            },
+            {
+                question: "Apakah kelebihan utama perkhidmatan storan awan (Cloud Storage)?",
+                options: [
+                    "Membuat peranti menjadi kalis air",
+                    "Menyimpan dan mengakses fail di mana-mana sahaja menerusi internet",
+                    "Menukar kelajuan pemprosesan komputer",
+                    "Menghapuskan keperluan untuk menggunakan kata laluan"
+                ],
+                answer: 1,
+                explanation: "Storan awan membolehkan pengguna menyimpan data secara dalam talian dan mengaksesnya dari pelbagai peranti."
+            },
+            {
+                question: "Apakah yang patut anda lakukan jika menerima e-mel daripada bank yang meminta maklumat peribadi?",
+                options: [
+                    "Terus memberikan maklumat yang diminta",
+                    "Mengabaikan mesej dan mengesahkannya terus dengan pihak bank melalui saluran rasmi",
+                    "Memajukan e-mel tersebut kepada semua rakan",
+                    "Menekan semua pautan dalam e-mel untuk kepastian"
+                ],
+                answer: 1,
+                explanation: "Pihak bank rasmi tidak akan meminta maklumat peribadi sensitif melalui e-mel atau pautan tidak sah."
+            },
+            {
+                question: "Apakah peranan utama peranti Rumah Pintar (Smart Home)?",
+                options: [
+                    "Mengubah perabot rumah menjadi bahan digital",
+                    "Automasi dan kawalan peralatan rumah secara jauh menerusi internet",
+                    "Menjanakan elektrik percuma secara automatik",
+                    "Menggantikan keperluan talian internet di rumah"
+                ],
+                answer: 1,
+                explanation: "Teknologi Rumah Pintar membolehkan pengguna mengawal kawalan lampu, suhu, dan keselamatan rumah menggunakan peranti pintar."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('start-btn').classList.add('hidden');
+            document.getElementById('result-box').classList.add('hidden');
+            document.getElementById('quiz-header').classList.remove('hidden');
+            document.getElementById('question-box').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = questions[currentQuestionIndex];
+            document.getElementById('question-count').innerText = `Soalan ${currentQuestionIndex + 1} daripada ${questions.length}`;
+            document.getElementById('question-text').innerText = q.question;
+            
+            // Kemas kini progress bar
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            document.getElementById('explanation').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => selectOption(idx);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex) {
+            const q = questions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.answer) {
+                    btn.classList.add('correct');
+                } else if (idx === selectedIndex) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            if (selectedIndex === q.answer) {
+                score++;
+            }
+
+            const expBox = document.getElementById('explanation');
+            expBox.innerText = q.explanation;
+            expBox.classList.remove('hidden');
+
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-header').classList.add('hidden');
+            document.getElementById('question-box').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const resultBox = document.getElementById('result-box');
+            resultBox.classList.remove('hidden');
+
+            document.getElementById('result-title').innerText = "Tahniah! Kuiz Selesai 🎉";
+            document.getElementById('score-display').innerText = `Skor anda: ${score} / ${questions.length}`;
+        }
+    </script></body></html>
